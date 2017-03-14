@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{% block title %}Discovery{% endblock %}</title>
+    <title>{% block title %}Discovery Teacher Overview{% endblock %}</title>
 
     <!-- Header scripts -->
     {% include 'scripts/header_scripts.html' %}
@@ -41,37 +41,21 @@
         </div>
     </nav>
     <div class="container-fluid">
-
         <!-- START TAB -->
         <ul class="nav nav-tabs">
-            <li><a href="#tab_100_points" data-toggle="tab">100 Points</a></li>
-            <li><a href="#tab_team_projects" data-toggle="tab">Teams and Projects</a></li>
-            <li><a href="#tab_effort_analysis" data-toggle="tab">Effort Analysis</a></li>
+            <li><a href="/100-point/">100 Points</a></li>
+            <li><a href="/team-projects/">Teams and Projects</a></li>
+            <li><a href="/effort-analysis/">Effort Analysis</a></li>
         </ul> <!--END TAB -->
 
         <!--START TAB CONTENT -->
         <!-- https://docs.djangoproject.com/en/1.7/ref/templates/builtins/#std:templatetag-include -->
         <div class="tab-content">
-            <!--START 100 POINTS TAB -->
-            <div class="tab-pane" id="tab_100_points">
-                {% include 'tabs/tab_100_points.html' %}
-            </div><!-- END 100 POINTS TAB -->
-
-
-            <div class="tab-pane" id="tab_team_projects">
-                {% include 'tabs/tab_team_projects.html' %}
-            </div>
-
-            <div class="tab-pane" id="tab_effort_analysis">
-                {% include 'tabs/tab_effort_analysis.html' %}
-            </div>
+            {% block tab-content %}{% endblock %}
         </div> <!--END TAB CONTENT -->
 
 
     </div>
     <!--end of container-->
-
-    <!-- Scripts -->
-    {% include 'scripts/post_body_scripts.html' %}
 </body>
 </html>

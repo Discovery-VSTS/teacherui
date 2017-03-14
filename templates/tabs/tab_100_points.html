@@ -1,3 +1,8 @@
+{% extends "base.html" %}
+
+{% block title %}100-points Overview{% endblock %}
+
+{% block tab-content %}
 <div class = "container-100-pts">
     <div class ="row">
         <div class="col-sm-4">
@@ -116,4 +121,10 @@
 <div class="container-100-pts container-100-pts-overview">
     <h3> Overview of Conflicts </h3>
     <canvas id="conflicts-bar-chart"> </canvas>
-</div>    <!-- END MAIN CONTENT -->
+</div>
+
+<!-- Scripts -->
+{% include 'scripts/100p_post_body_scripts.html' %}
+
+
+{% endblock %}
