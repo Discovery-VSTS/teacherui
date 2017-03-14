@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import GivenPoint, GivenPointArchived, Member, PointDistribution
 
-# Register your models here.
+admin.site.register(GivenPoint)
+admin.site.register(GivenPointArchived)
+admin.site.register(Member)
+admin.site.register(PointDistribution)
