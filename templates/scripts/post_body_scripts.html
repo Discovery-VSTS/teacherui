@@ -1,0 +1,112 @@
+<script>
+    $("#line-chart").click(function() {
+        var ctx = document.getElementById('skills').getContext('2d');
+        var myChart = new Chart(ctx, {
+        type: 'line',
+          data: {
+            labels: ['W1', 'W2', 'W3', 'W4', 'W5'],
+            datasets: [{
+              label: 'Student 1',
+              data: [20, 25, 30, 17, 22],
+              backgroundColor: 'transparent',
+              borderColor: "rgba(255,153,0,0.4)"
+
+            }, {
+              label: 'Student 2',
+              data: [2, 29, 5, 5, 2, 3, 10],
+               backgroundColor: 'transparent',
+               borderColor: "rgba(153,255,51,0.4)"
+
+            }]
+          }
+        });
+    });
+
+    $("#pie-chart").click(function() {
+        var ctx = document.getElementById("skills").getContext('2d');
+        var myChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+            labels: ["Student 1", "Student 2", "Student 3", "Student 4", "Student 5"],
+            datasets: [{
+              backgroundColor: [
+                "#2ecc71",
+                "#3498db",
+                "#95a5a6",
+                "#9b59b6",
+                "#f1c40f",
+                "#e74c3c",
+                "#34495e"
+              ],
+              data: [12, 13, 25, 20, 30]
+            }]
+          }
+        });
+    });
+
+    $("#student1").click(function() {
+        var ctx = document.getElementById('skills').getContext('2d');
+        var myChart = new Chart(ctx, {
+        type: 'line',
+          data: {
+            labels: ['W1', 'W2', 'W3', 'W4', 'W5'],
+            datasets: [{
+              label: 'Student 1',
+              data: [20, 25, 30, 17, 22],
+              backgroundColor: 'transparent',
+              borderColor: "rgba(255,153,0,0.4)"
+
+            }]
+          }
+        });
+    });
+
+    $("#student2").click(function() {
+        var ctx = document.getElementById('skills').getContext('2d');
+        var myChart = new Chart(ctx, {
+        type: 'line',
+          data: {
+            labels: ['W1', 'W2', 'W3', 'W4', 'W5'],
+            datasets: [{
+              label: 'Student 2',
+              data: [2, 29, 5, 5, 2, 3, 10],
+               backgroundColor: 'transparent',
+               borderColor: "rgba(153,255,51,0.4)"
+
+            }]
+          }
+        });
+    });
+
+        var ctx = document.getElementById('conflicts-bar-chart').getContext('2d');
+        var myChart = new Chart(ctx, {
+        type: 'bar',
+          data: {
+            labels: ['W1', 'W2', 'W3', 'W4', 'W5'],
+            datasets: [{
+              label: 'Student 1',
+              data: [20, 25, 30, 17, 22],
+              backgroundColor: "rgba(255,153,0,0.4)"
+
+            },
+
+            {
+              label: 'Student 2',
+              data: [20, 22, 25, 20, 22],
+               backgroundColor: "rgba(153,255,51,0.4)"
+
+            }]
+          }
+        });
+
+</script>
+
+<!-- Include custome js fils -->
+{% load static %}
+<script src="{% static "js/controller.js" %}"></script>
+<script src="{% static "js/100-points-status-ctrl.js" %}"></script>
+<script src="{% static "js/100-points-assign-ctrl.js" %}"></script>
+
+<script type="text/javascript">
+    VSS.notifyLoadSucceeded();
+</script>
