@@ -1,0 +1,119 @@
+<div class = "container-100-pts">
+    <div class ="row">
+        <div class="col-sm-4">
+            <form>
+
+                <div class="dropdown">
+                  <button class="btn btn-primary dropdown-toggle filter-element-100-pts" type="button" data-toggle="dropdown">Team
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Team 1</a></li>
+                    <li><a href="#">Team 2</a></li>
+                    <li><a href="#">Team 3</a></li>
+                  </ul>
+                </div>
+           </form>
+        </div>
+
+        <div class="col-sm-4">
+             <form>
+                <div class="dropdown">
+                  <button class="btn btn-primary dropdown-toggle filter-element-100-pts" type="button" data-toggle="dropdown">Class
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#" class="filter-element-100pts">2013-2014</a></li>
+                    <li><a href="#" class="filter-element-100pts">2014-2015</a></li>
+                    <li><a href="#" class="filter-element-100pts">2015-2016</a></li>
+                  </ul>
+                </div>
+           </form>
+        </div>
+
+        <div class="col-sm-4">
+            <form>
+                <button type="submit" class="btn btn-default filter-element-100-pts">Show </button>
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!--MAIN CONTENT -->
+<div class = "container-100-pts container-100-pts-hidden">
+    <div class = "container-100-pts-details-filter">
+        <form>
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle main-filter-element-100-pts" type="button" data-toggle="dropdown">Week
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Week 1</a></li>
+                    <li><a href="#">Week 2</a></li>
+                    <li><a href="#">Week 3</a></li>
+                </ul>
+            </div>
+
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle main-filter-element-100-pts" type="button" data-toggle="dropdown">Student
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" id="student1">Student 1</a></li>
+                    <li><a href="#" id="student2">Student 2</a></li>
+                    <li><a href="#" id="student3">Student 3</a></li>
+                </ul>
+            </div>
+
+
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle main-filter-element-100-pts" type="button" data-toggle="dropdown">Chart Type
+                <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" id="line-chart">Line</a></li>
+                    <li><a href="#" id="pie-chart">Pie</a></li>
+
+                </ul>
+            </div>
+        </form>
+    </div>
+
+    <div class = "container-100-pts-details-chart">
+        <canvas id="skills"> </canvas>
+    </div>
+
+</div>
+
+<div class="container-100-pts container-100-pts-overview">
+    <h3> Overview of Contribution </h3>
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Name </th>
+                <th>Total Points </th>
+                <th>Notes </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Student 1 </td>
+                <td> 690 </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Student 2 </td>
+                <td> 700 </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Student 3 </td>
+                <td> 650 </td>
+                <td></td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="container-100-pts container-100-pts-overview">
+    <h3> Overview of Conflicts </h3>
+    <canvas id="conflicts-bar-chart"> </canvas>
+</div>    <!-- END MAIN CONTENT -->
