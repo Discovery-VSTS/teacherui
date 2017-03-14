@@ -4,5 +4,5 @@ from . import views
 
 
 urlpatterns = [
-    url(r'index/$', views.current_datetime),
+    url(r'index/$', views.index),
 ]
