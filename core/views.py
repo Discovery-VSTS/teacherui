@@ -7,19 +7,23 @@ def login(request):
     template = get_template('login/login.html')
     return HttpResponse(template.render())
 
-liveStatus = dict(navStatus={"100pt": "", "codemetrics": ""})
-
+liveStatus = dict(
+    navStatus={
+        "hundredPt": "",
+        "codemetrics": ""
+    }
+)
 
 def tab_100_points(request):
     template = get_template('tabs/tab_100_points.html')
-    liveStatus['navStatus']['100pt'] = "active"
+    liveStatus['navStatus']['hundredPt'] = "active"
     liveStatus['navStatus']['codemetrics'] = ""
     return HttpResponse(template.render(Context(liveStatus)))
 
 
 def tab_codemetrics(request):
     template = get_template('tabs/tab_codemetrics.html')
-    liveStatus['navStatus']['100pt'] = ""
+    liveStatus['navStatus']['hundredPt'] = ""
     liveStatus['navStatus']['codemetrics'] = "active"
     return HttpResponse(template.render(Context(liveStatus)))
 
