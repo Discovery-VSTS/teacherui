@@ -14,13 +14,6 @@ liveStatus = dict(
     }
 )
 
-def index(request):
-    html = get_template('tabs/tab_100_points.html')
-    liveStatus['navStatus']['hundredPt'] = "active"
-    liveStatus['navStatus']['codemetrics'] = ""
-    return HttpResponse(html.render(Context(liveStatus)))
-
-
 def tab_100_points(request):
     template = get_template('tabs/tab_100_points.html')
     liveStatus['navStatus']['hundredPt'] = "active"
