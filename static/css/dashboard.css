@@ -24,9 +24,6 @@ body {
 .navbar-fixed-top {
   border: 0;
 }
-#navbar {
-  background-color: white;
-}
 
 /*
  * Sidebar
@@ -36,56 +33,6 @@ body {
 .sidebar {
   display: none;
 }
-
-
-.filter-element-100-pts {
-  width: 80%;
-}
-
-.container-100-pts {
-  margin: 20px 10px 10px 10px;
-  border: 2px black solid;
-  padding: 20px 10px 20px 10px;
-  border-radius: 10px;
-  
-
-}
-
-.container-100-pts-hidden {
-  overflow: auto;
-}
-
-
-
-.container-100-pts-details-filter {
-  width: 30%;
-  float: left;
-  overflow: hidden;
-  height: 300px;
-  
-}
-
-.container-100-pts-details-chart {
-  width: 50%;
-  float: left;
-  margin-left: 100px;
-  
-}
-.main-filter-element-100-pts {
-  width: 100%;
-  margin-bottom: 20px;
-
-}
-
-.container-100-pts-overview {
-  width: 48%;
-  float: left;
-  overflow: hidden;
-
-}
-
-
-
 @media (min-width: 768px) {
   .sidebar {
     position: fixed;
@@ -155,8 +102,4 @@ body {
 .placeholder img {
   display: inline-block;
   border-radius: 50%;
-}
-
-div#charts-container {
-  padding-top: 30px;
 }

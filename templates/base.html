@@ -9,15 +9,6 @@
     <meta name="author" content="Yichen Lu">
     <link rel="icon" href="">
     <title>{% block title %}Teacher's Portal - VSTS Discovery{% endblock %}</title>
-    <!-- Bootstrap core CSS -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom styles for this template -->
-    <link href="css/dashboard.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
     <!-- Header scripts -->
     {% include 'scripts/header_scripts.html' %}
@@ -25,20 +16,23 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            </button>
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Discovery - Teacher Portal</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav nav-pills navbar-nav navbar-left">
+                <ul class="nav navbar-nav navbar-left">
                     <li {% block 100pt %}{% endblock %}><a href="/100-point/">100 Points</a></li>
                     <li {% block codemetrics %}{% endblock %}><a href="/codemetrics/">Codemetrics</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="http://getbootstrap.com/examples/dashboard/#">Help</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Settings</a></li>
@@ -48,14 +42,14 @@
         </div>
     </nav>
     <div class="container-fluid">
-        <!--START TAB CONTENT -->
-        <div class="tab-content">
-            {% block tab-content %}{% endblock %}
-        </div> <!--END TAB CONTENT -->
-
-
+        <div class="row">
+            <!--START TAB CONTENT -->
+            <div class="tab-content">
+                {% block tab-content %}{% endblock %}
+            </div>
+            <!--END TAB CONTENT -->
+        </div>
     </div>
-    <!--end of container-->
 
     <!-- Body scripts -->
     {% include 'scripts/post_body_scripts.html' %}
