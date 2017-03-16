@@ -5,7 +5,7 @@ See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wirefra
 
 ## Components and Developer
 
-### 100 Points Tab
+### [100 Points Tab](https://github.com/Discovery-VSTS/teacherui/blob/master/templates/tabs/tab_100_points.html)
 
 **100pt-top-selector** - Yichen
 
@@ -13,7 +13,7 @@ See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wirefra
 
 **distribution-analysis**
 
-### Code Metrics Tab
+### [Code Metrics Tab](https://github.com/Discovery-VSTS/teacherui/blob/master/templates/tabs/tab_codemetrics.html)
 
 **codemetrics-top-selector**
 
