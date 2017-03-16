@@ -17,11 +17,7 @@ def tab_100_points(request):
     return HttpResponse(template.render())
 
 
-def tab_effort_analysis(request):
-    template = get_template('tabs/tab_effort_analysis.html')
+def tab_codemetrics(request):
+    template = get_template('tabs/tab_codemetrics.html')
     return HttpResponse(template.render())
 
-
-def tab_team_projects(request):
-    template = get_template('tabs/tab_team_projects.html')
-    return HttpResponse(template.render())
