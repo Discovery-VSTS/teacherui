@@ -1,11 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>{% block title %}Discovery Teacher Overview{% endblock %}</title>
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="The teacher's portal for VSTS Discovery extension">
+    <meta name="author" content="Yichen Lu">
+    <link rel="icon" href="">
+    <title>{% block title %}Teacher's Portal - VSTS Discovery{% endblock %}</title>
+    <!-- Bootstrap core CSS -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="css/dashboard.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
     <!-- Header scripts -->
     {% include 'scripts/header_scripts.html' %}
@@ -13,10 +25,6 @@
 </head>
 
 <body>
-    <script type="text/javascript">
-        VSS.init();
-    </script>
-
     <nav class="navbar navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -29,7 +37,7 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav nav-pills navbar-nav navbar-left">
-                    <li {% block 100p %}{% endblock %}><a href="/100-point/">100 Points</a></li>
+                    <li {% block 100pt %}{% endblock %}><a href="/100-point/">100 Points</a></li>
                     <li {% block codemetrics %}{% endblock %}><a href="/codemetrics/">Codemetrics</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -48,5 +56,8 @@
 
     </div>
     <!--end of container-->
+
+    <!-- Body scripts -->
+    {% include 'scripts/post_body_scripts.html' %}
 </body>
 </html>
