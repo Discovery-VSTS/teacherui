@@ -8,7 +8,7 @@ def login(request):
 
 
 def index(request):
-    html = get_template('base.html')
+    html = get_template('tabs/tab_100_points.html')
     return HttpResponse(html.render())
 
 
