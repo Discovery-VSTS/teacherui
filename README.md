@@ -10,7 +10,7 @@ See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wirefra
 
 **100pt-top-selector** - Yichen
 
-**score-table**
+**score-table** - Ricard
 
 **distribution-analysis**
 
