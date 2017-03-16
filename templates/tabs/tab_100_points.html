@@ -1,22 +1,14 @@
 {% extends "base.html" %}
 {% block tab-content %}
-    {% block 100pt-top-selector %}
+    {% include 'tabs/100p/100pt-top-selector.html' %}
 
-    {% endblock %}
-
-
-    {% block score-table %}
-        <h1>Score Table</h1>
-    {% endblock %}
+    {% include 'tabs/100p/score-table.html' %}
 
 
     <hr>
 
 
-    {% block distribution-analysis %}
-        <h1>Points Distribution Analysis</h1>
-
-    {% endblock %}
+    {% include 'tabs/100p/distribution-analysis.html' %}
     
 
 {% endblock %}
