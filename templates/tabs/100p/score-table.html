@@ -1,5 +1,6 @@
 <h1>Score Table</h1>
 
+{% if total_points_team.items %}
 <table class="table">
   <thead>
     <tr>
@@ -17,3 +18,4 @@
   {% endfor %}
   </tbody>
 </table>
+{% endif %}
