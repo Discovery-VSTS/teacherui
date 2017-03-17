@@ -1,0 +1,21 @@
+<h1>Score Table</h1>
+
+{% if total_points_team.items %}
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Total points earned</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for name, points in total_points_team.items %}
+      <tr>
+        <td>{{ name }}</td>
+        <td>{{ points }}</td>
+      </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endif %}

@@ -1,21 +1,13 @@
 {% extends "base.html" %}
-
+{% block active-codemetrics %}class="active"{% endblock %}
 {% block tab-content %}
     
-    {% block codemetrics-top-selector %}
-    
-    {% endblock %}
+    {% include 'tabs/codemetrics/codemetrics-top-selector.html' %}
 
-    {% block gpa-score %}
-        <h1>GPA Score: </h1>    
-    {% endblock %}
+    {% include 'tabs/codemetrics/gpa-score.html' %}
     
-    {% block code-coverage %}
-    
-    {% endblock %}
-    
-    {% block commit-stats %}
-    
-    {% endblock %}
-    
+    {% include 'tabs/codemetrics/code-coverage.html' %}
+
+    {% include 'tabs/codemetrics/commit-stats.html' %}
+
 {% endblock %}

@@ -10,13 +10,13 @@ See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wirefra
 
 **100pt-top-selector** - Yichen
 
-**score-table**
+**score-table** - Ricard
 
 **distribution-analysis**
 
 ### [Code Metrics Tab](https://github.com/Discovery-VSTS/teacherui/blob/master/templates/tabs/tab_codemetrics.html)
 
-**codemetrics-top-selector**
+**codemetrics-top-selector** - Ricard
 
 **gpa-score**
 
