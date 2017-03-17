@@ -1,0 +1,7 @@
+<div class="row">
+    <select class="selectpicker" data-live-search="true">
+        {% for name, id in instance_list.item %}
+            <option><a href="/app/100-point/?team={{ id }}">{{ name }}</a></option>
+        {% endfor %}
+    </select>
+</div>
