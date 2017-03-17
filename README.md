@@ -16,7 +16,7 @@ See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wirefra
 
 ### [Code Metrics Tab](https://github.com/Discovery-VSTS/teacherui/blob/master/templates/tabs/tab_codemetrics.html)
 
-**codemetrics-top-selector**
+**codemetrics-top-selector** - Ricard
 
 **gpa-score**
 
