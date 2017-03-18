@@ -23,9 +23,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'qijji#&-8y%4(rpvh*nj-_c&&n1t_j0om6ld2vxg-5=%le9h@l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = eval(os.getenv('DEBUG', 'True'))
+TRAVIS = (True if os.getenv('TRAVIS', 'false') == 'true' else False)
+PROD = eval(os.getenv('PROD', 'False'))
 
-ALLOWED_HOSTS = []
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "visualstudio.com",
+    "discovery-teacherui.azurewebsites.net",
+]
 
 
 # Application definition
@@ -125,6 +134,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/app/index/'
