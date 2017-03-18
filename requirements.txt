@@ -1,4 +1,10 @@
+appdirs==1.4.3
+coverage==4.3.4
 Django==1.10.5
 gunicorn==19.7.0
 Markdown==2.6.8
+packaging==16.8
+psycopg2==2.7.1
+pyparsing==2.2.0
 requests==2.13.0
+six==1.10.0
