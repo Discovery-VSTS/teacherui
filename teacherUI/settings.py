@@ -24,7 +24,6 @@ SECRET_KEY = 'qijji#&-8y%4(rpvh*nj-_c&&n1t_j0om6ld2vxg-5=%le9h@l'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = eval(os.getenv('DEBUG', 'True'))
-TRAVIS = (True if os.getenv('TRAVIS', 'false') == 'true' else False)
 PROD = eval(os.getenv('PROD', 'False'))
 
 SESSION_COOKIE_SECURE = True
@@ -85,12 +84,24 @@ WSGI_APPLICATION = 'teacherUI.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if not PROD:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['DB_NAME'],
+            'USER': os.environ['DB_USER'],
+            'PASSWORD': os.environ['DB_PWD'],
+            'HOST': os.environ['DB_HOST'],
+            'PORT': os.environ['DB_PORT'],
+        }
+    }
 
 
 # Password validation
