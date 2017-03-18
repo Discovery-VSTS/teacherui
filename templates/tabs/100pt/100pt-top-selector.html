@@ -1,9 +1,15 @@
 <div class="row">
     <select class="selectpicker" title="Select a team to display" onchange="location = this.options[this.selectedIndex].value;">
         {% for key, value in instance_list.items %}
+            {% if key == team_id %}
+            <option value="/app/100-point/?team={{ key }}" selected="selected">
+                {{ value.instance_name }}
+            </option>
+            {% else %}
             <option value="/app/100-point/?team={{ key }}">
                 {{ value.instance_name }}
             </option>
+            {% endif %}
         {% endfor %}
     </select>
 </div>
