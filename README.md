@@ -18,6 +18,6 @@ See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wirefra
 
 **codemetrics-top-selector** - Ricard
 
-**gpa-score**
+**gpa-score** - Yichen
 
 **commit-stats**
