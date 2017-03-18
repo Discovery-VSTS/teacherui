@@ -1,0 +1,16 @@
+{% extends "registration/base.html" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="text-center" style="padding:50px 0">
+	<div class="logo"> {{ message }}</div>
+    <div class="etc-login-form">
+        {% if success %}
+            <p><a href="/login/">click here to go back to login</a></p>
+        {% else %}
+            <p><a href="/register/">click here to go back to register</a></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

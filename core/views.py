@@ -2,7 +2,31 @@ from django.http import HttpResponse
 from django.template import Context
 from django.template.loader import get_template
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from django.contrib.auth.models import User
+from .forms import UserForm
 import requests
+
+
+def register_user(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['reg_username']
+            pwd = form.cleaned_data['reg_password']
+            if pwd != form.cleaned_data['reg_password_confirm']:
+                return render(request, 'registration/info_msg.html',
+                              {'message': 'The passwords don\'t match', 'title': 'Error'})
+            email = form.cleaned_data['reg_email']
+            user = User.objects.create_user(username, email, pwd)
+            user.is_superuser = True
+            user.is_staff = True
+            user.save()
+            return render(request, 'registration/info_msg.html',
+                          {'message': 'You\'ve registered correctly', 'title': 'Success', 'success': True})
+    else:
+        form = UserForm()
+        return render(request, 'registration/register.html', {'form': form})
 
 
 @login_required
