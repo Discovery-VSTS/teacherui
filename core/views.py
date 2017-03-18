@@ -14,7 +14,7 @@ def tab_100_points(request):
     BASE_URL = 'http://discovery-100p.azurewebsites.net/{}{}'
 
     r = requests.get(BASE_URL.format('v1/teams/all/', ''))
-    instanceList = r.json()
+    instance_list = r.json()
 
     TEAM = request.GET.get('team', '')
     r = requests.get(BASE_URL.format('v1/team/points/', '?instance_id=%s' % TEAM))
@@ -22,7 +22,8 @@ def tab_100_points(request):
     return HttpResponse(template.render(Context(
         {
             'total_points_team': total_points_team,
-            'instance_list': instanceList
+            'instance_list': instance_list,
+            'team_id': TEAM,
         }
     )))
 
