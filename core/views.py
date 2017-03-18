@@ -1,14 +1,11 @@
 from django.http import HttpResponse
 from django.template import Context
 from django.template.loader import get_template
+from django.contrib.auth.decorators import login_required
 import requests
 
 
-def login(request):
-    template = get_template('login/login.html')
-    return HttpResponse(template.render())
-
-
+@login_required
 def tab_100_points(request):
     template = get_template('tabs/tab_100_points.html')
     BASE_URL = 'http://discovery-100p.azurewebsites.net/{}{}'
@@ -28,6 +25,7 @@ def tab_100_points(request):
     )))
 
 
+@login_required
 def tab_codemetrics(request):
     template = get_template('tabs/tab_codemetrics.html')
     return HttpResponse(template.render(Context(
