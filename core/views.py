@@ -12,12 +12,17 @@ def login(request):
 def tab_100_points(request):
     template = get_template('tabs/tab_100_points.html')
     BASE_URL = 'http://discovery-100p.azurewebsites.net/{}{}'
+
+    r = requests.get(BASE_URL.format('v1/teams/all/', ''))
+    instanceList = r.json()
+
     TEAM = request.GET.get('team', '')
     r = requests.get(BASE_URL.format('v1/team/points/', '?instance_id=%s' % TEAM))
     total_points_team = r.json()
     return HttpResponse(template.render(Context(
         {
-            'total_points_team': total_points_team
+            'total_points_team': total_points_team,
+            'instance_list': instanceList
         }
     )))
 
