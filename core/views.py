@@ -52,19 +52,58 @@ def tab_100_points(request):
 @login_required
 def tab_codemetrics(request):
     template = get_template('tabs/tab_codemetrics.html')
+
+    
+
     CM_BASE_URL = 'https://discovery-codemetrics.azurewebsites.net/{}{}'
+    BASE_URL_100P = 'http://discovery-100p.azurewebsites.net/{}{}'
+    BASE_URL_CODEMETRICS = 'http://discovery-codemetrics.azurewebsites.net/{}{}'
 
-    instance_id = request.GET.get('instance_id','')
+    r = requests.get(BASE_URL_100P.format('v1/teams/all/', ''))
+    instance_list = r.json()
+
+    TEAM_ID = request.GET.get('team_id', '')
+    REPO_ID = request.GET.get('repo_id', '')
+    MEMBER_ID = request.GET.get('member_id', '')
+    MEMBER_EMAIL = request.GET.get('member_email', '')
+    TEAM_NAME = request.GET.get('team_name', '')
+    REPO_NAME = request.GET.get('repo_name', '')
     github_repo = request.GET.get('github_repo','')
-    user_email = request.GET.get('user_email','')
+    
+    
 
+    r = requests.get(BASE_URL_CODEMETRICS.format('repo-stats/repos/',
+                                                 '?instance_name=%s&instance_id=%s' % (TEAM_NAME, TEAM_ID)))
+    if r.status_code == 200:
+        repo_list = r.json()['repos']
+    else:
+        repo_list = []
+
+    r = requests.get(BASE_URL_100P.format('v1/teams/all/', ''))
+    teams = r.json()
+    team_list = []
+    for team_id, team in teams.items():
+        if team_id == TEAM_ID:
+            team_list = team['members']
+            
     r = requests.get(CM_BASE_URL.format('code-score/gpa/', '?github_repo=%s&instance_id=%s&user_email=%s'
-                                        % github_repo, instance_id, user_email))
+                                        % github_repo, TEAM_ID, MEMBER_MAIL))
     gpa = r.json()
+
+
 
     return HttpResponse(template.render(Context(
         {
-            'gpa': gpa
+            'instance_list': instance_list,
+            'repo_list': repo_list,
+            'team_list': team_list,
+            'team_id': TEAM_ID,
+            'team_name': TEAM_NAME,
+            'repo_id': REPO_ID,
+            'repo_name': REPO_NAME,
+            'member_id': MEMBER_ID,
+            'member_email': MEMBER_EMAIL,
+            'gpa': gpa,
         }
     )))
 

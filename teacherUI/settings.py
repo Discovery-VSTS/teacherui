@@ -26,8 +26,9 @@ SECRET_KEY = 'qijji#&-8y%4(rpvh*nj-_c&&n1t_j0om6ld2vxg-5=%le9h@l'
 DEBUG = eval(os.getenv('DEBUG', 'True'))
 PROD = eval(os.getenv('PROD', 'False'))
 
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
+if PROD:
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
