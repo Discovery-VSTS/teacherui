@@ -1,6 +1,11 @@
 <h1>Points Distribution Analysis</h1>
 <script type="text/javascript">
-    $(document).ready(function() {
+
+   $(document).ready(function() {
+       render_chart();
+   });
+
+   function render_chart() {
 
         var ctx = document.getElementById('pointDist').getContext("2d");
         ctx.canvas.width = 100;
@@ -44,16 +49,20 @@
             };
         }
 
-        var pieChart = new Chart(ctx, {
-            type: 'pie',
-            data: piechart_data,
-            options: {
-                animation: {
-                    animateScale: true
+        if (document.getElementById("checkbox-members").checked == true) {
+            var pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: piechart_data,
+                options: {
+                    animation: {
+                        animateScale: true
+                    }
                 }
-            }
-        });
-    });
-
+            });
+        }
+        }
 </script>
-<canvas id="pointDist" style="max-height: 501px; max-width: 501px"></canvas>
+<label><input type="checkbox" onclick="render_chart()" id="checkbox-members" checked="checked"> All Members</label>
+<div id="dataDist">
+    <canvas id="pointDist" style="max-height: 501px; max-width: 501px"></canvas>
+</div>
