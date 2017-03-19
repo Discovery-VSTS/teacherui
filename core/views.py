@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from .forms import UserForm
 import requests
+import json
 
 
 def register_user(request):
@@ -32,7 +33,7 @@ def register_user(request):
 @login_required
 def tab_100_points(request):
     template = get_template('tabs/tab_100_points.html')
-    BASE_URL = 'http://discovery-100p.azurewebsites.net/{}{}'
+    BASE_URL = 'https://discovery-100p.azurewebsites.net/{}{}'
 
     r = requests.get(BASE_URL.format('v1/teams/all/', ''))
     instance_list = r.json()
@@ -40,8 +41,23 @@ def tab_100_points(request):
     TEAM = request.GET.get('team', '')
     r = requests.get(BASE_URL.format('v1/team/points/', '?instance_id=%s' % TEAM))
     total_points_team = r.json()
+
+    # Add in elements for point distribution
+
+    piechart_labels = []
+    piechart_datasets = []
+
+    for name, point in total_points_team.items():
+        piechart_labels.append(name.strip())
+        piechart_datasets.append(point)
+
+    print(piechart_datasets)
+    print(piechart_labels)
+
     return HttpResponse(template.render(Context(
         {
+            'labels': json.dumps({"labels": piechart_labels}),
+            'datasets': json.dumps({"datasets": piechart_datasets}),
             'total_points_team': total_points_team,
             'instance_list': instance_list,
             'team_id': TEAM,
