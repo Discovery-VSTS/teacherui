@@ -75,17 +75,18 @@
         }
     }
 
-    function render_line_chart_between_selected_members(members) {
+    function render_line_chart_between_selected_members() {
 
     }
 </script>
 
 <label><input type="checkbox" onclick="render_chart()" id="checkbox-members" checked="checked"> All Members</label>
-<select id="member-picker" class="selectpicker" onselect="render_line_chart_between_selected_members(this)" multiple>
+<select id="member-picker" class="selectpicker" multiple>
     {% for member in members %}
             <option value="{{ member }}">{{ member }}</option>
     {% endfor %}
 </select>
+<button type="button" class="btn btn-primary" onclick="render_line_chart_between_selected_members()">Compare</button>
 <div id="dataDist" class="chart-container">
     <canvas id="pointDist" style="max-height: 501px; max-width: 501px"></canvas>
 </div>
