@@ -79,8 +79,6 @@ def tab_codemetrics(request):
         if team_id == TEAM_ID:
             team_list = team['members']
 
-
-
     return HttpResponse(template.render(Context(
         {
             'instance_list': instance_list,
