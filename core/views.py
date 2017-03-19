@@ -54,12 +54,10 @@ def tab_codemetrics(request):
     template = get_template('tabs/tab_codemetrics.html')
     CM_BASE_URL = 'https://discovery-codemetrics.azurewebsites.net/{}{}'
 
-    # instance_id = request.GET.get('instance_id','')
-    # github_repo = request.GET.get('github_repo','')
-    # user_email = request.GET.get('user_email','')
-    instance_id = "f352ef29-9321-4588-85ba-e35ca23db41f"
-    github_repo = "100-point-discovery-backend"
-    user_email = "zcabmdo%40ucl.ac.uk"
+    instance_id = request.GET.get('instance_id','')
+    github_repo = request.GET.get('github_repo','')
+    user_email = request.GET.get('user_email','')
+
     r = requests.get(CM_BASE_URL.format('code-score/gpa/', '?github_repo=%s&instance_id=%s&user_email=%s'
                                         % github_repo, instance_id, user_email))
     gpa = r.json()
