@@ -69,6 +69,8 @@ def tab_100_points(request):
 @login_required
 def tab_codemetrics(request):
     template = get_template('tabs/tab_codemetrics.html')
+
+    CM_BASE_URL = 'https://discovery-codemetrics.azurewebsites.net/{}{}'
     BASE_URL_100P = 'http://discovery-100p.azurewebsites.net/{}{}'
     BASE_URL_CODEMETRICS = 'http://discovery-codemetrics.azurewebsites.net/{}{}'
 
@@ -95,6 +97,15 @@ def tab_codemetrics(request):
     for team_id, team in teams.items():
         if team_id == TEAM_ID:
             team_list = team['members']
+            
+    r = requests.get(CM_BASE_URL.format('code-score/gpa/', '?github_repo=%s&instance_id=%s&user_email=%s'
+                                        % (REPO_NAME, TEAM_ID, MEMBER_EMAIL)))
+
+
+    if r.status_code == 200:
+        gpa = r.json()
+    else:
+        gpa = {}
 
     return HttpResponse(template.render(Context(
         {
@@ -107,6 +118,7 @@ def tab_codemetrics(request):
             'repo_name': REPO_NAME,
             'member_id': MEMBER_ID,
             'member_email': MEMBER_EMAIL,
+            'gpa_object': gpa,
         }
     )))
 

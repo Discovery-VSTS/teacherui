@@ -22,4 +22,4 @@ See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wirefra
 
 **commit-stats**
 
-**code-coverage**
+**code-coverage** - Yichen
