@@ -56,6 +56,7 @@ def tab_100_points(request):
 
     return HttpResponse(template.render(Context(
         {
+            'members': piechart_labels,
             'labels': json.dumps({"labels": piechart_labels}),
             'datasets': json.dumps({"datasets": piechart_datasets}),
             'total_points_team': total_points_team,

@@ -2,6 +2,7 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        var pieChart;
         render_chart();
     });
 
@@ -55,7 +56,7 @@
                 };
             }
 
-            var pieChart = new Chart(ctx, {
+            pieChart = new Chart(ctx, {
                 type: 'pie',
                 data: piechart_data,
                 options: {
@@ -69,12 +70,21 @@
             console.log("hello");
             $('#member-picker').attr('disabled', false);
             $('#member-picker').selectpicker('refresh');
+
+            pieChart.destroy();
         }
+    }
+
+    function render_line_chart_between_selected_members(members) {
+
     }
 </script>
 
 <label><input type="checkbox" onclick="render_chart()" id="checkbox-members" checked="checked"> All Members</label>
-<select id="member-picker" class="selectpicker">
+<select id="member-picker" class="selectpicker" onselect="render_line_chart_between_selected_members(this)" multiple>
+    {% for member in members %}
+            <option value="{{ member }}">{{ member }}</option>
+    {% endfor %}
 </select>
 <div id="dataDist" class="chart-container">
     <canvas id="pointDist" style="max-height: 501px; max-width: 501px"></canvas>
