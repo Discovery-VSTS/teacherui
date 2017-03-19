@@ -10,6 +10,8 @@
     <link rel="icon" href="">
     <title>{% block title %}Teacher's Portal - VSTS Discovery{% endblock %}</title>
 
+    {% block head %}{% endblock %}
+
     <!-- Header scripts -->
     {% include 'scripts/header_scripts.html' %}
 
@@ -44,14 +46,12 @@
         {% endblock %}
     </div>
 </nav>
-<div class="container-fluid">
-    <div class="row">
-        <!--START TAB CONTENT -->
-        <div class="tab-content">
-            {% block tab-content %}{% endblock %}
-        </div>
-        <!--END TAB CONTENT -->
-    </div>
+<div class="container-fluid main side-space">
+    <!--START TAB CONTENT -->
+
+    {% block tab-content %}{% endblock %}
+
+    <!--END TAB CONTENT -->
 </div>
 
 <!-- Body scripts -->

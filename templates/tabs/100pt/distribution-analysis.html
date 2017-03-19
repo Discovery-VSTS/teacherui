@@ -1,1 +1,91 @@
 <h1>Points Distribution Analysis</h1>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        var pieChart;
+        render_chart();
+    });
+
+    function render_chart() {
+
+        if (document.getElementById("checkbox-members").checked == true) {
+            $('#member-picker').attr('disabled', true);
+            $('#member-picker').selectpicker('refresh');
+
+            var ctx = document.getElementById('pointDist').getContext("2d");
+            ctx.canvas.width = 100;
+            ctx.canvas.height = 100;
+
+            var labels_data = '{{ labels|escapejs }}';
+            var point_data = '{{ datasets|escapejs }}';
+
+            console.log(labels_data);
+            console.log(point_data);
+
+            var labels_data_json = JSON.parse(labels_data);
+            var point_data_json = JSON.parse(point_data);
+
+            console.log(labels_data_json.labels);
+            console.log(point_data_json.datasets);
+
+            var sum_points = point_data_json.datasets.reduce(function (a, b) {
+                return a + b
+            }, 0);
+
+            console.log(sum_points);
+
+            piechart_data = {};
+
+            if (sum_points > 0) {
+                piechart_data = {
+                    labels: labels_data_json.labels,
+                    datasets: [
+                        {
+                            data: point_data_json.datasets
+                        }
+                    ]
+                };
+            } else {
+                piechart_data = {
+                    labels: ["Unknown"],
+                    datasets: [
+                        {
+                            data: [100]
+                        }
+                    ]
+                };
+            }
+
+            pieChart = new Chart(ctx, {
+                type: 'pie',
+                data: piechart_data,
+                options: {
+                    animation: {
+                        animateScale: true
+                    }
+                }
+            });
+        }
+        else {
+            console.log("hello");
+            $('#member-picker').attr('disabled', false);
+            $('#member-picker').selectpicker('refresh');
+
+            pieChart.destroy();
+        }
+    }
+
+    function render_line_chart_between_selected_members(members) {
+
+    }
+</script>
+
+<label><input type="checkbox" onclick="render_chart()" id="checkbox-members" checked="checked"> All Members</label>
+<select id="member-picker" class="selectpicker" onselect="render_line_chart_between_selected_members(this)" multiple>
+    {% for member in members %}
+            <option value="{{ member }}">{{ member }}</option>
+    {% endfor %}
+</select>
+<div id="dataDist" class="chart-container">
+    <canvas id="pointDist" style="max-height: 501px; max-width: 501px"></canvas>
+</div>
