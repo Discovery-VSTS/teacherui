@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-4">
-        <select class="selectpicker" title="Select a team to display"
+        <select id="team_id" class="selectpicker" title="Select a team to display"
                 onchange="location = this.options[this.selectedIndex].value;">
             {% for key, value in instance_list.items %}
                 {% if key == team_id %}
@@ -20,7 +20,7 @@
 
     <div class="col-md-4">
         {% if repo_list|length %}
-            <select class="selectpicker" title="Select repository"
+            <select id="repo" class="selectpicker" title="Select repository"
                     onchange="location = this.options[this.selectedIndex].value;">
                 {% for repo in repo_list %}
                     {% if repo.name == repo_name %}
@@ -41,7 +41,7 @@
 
     <div class="col-md-4">
         {% if team_list|length %}
-            <select class="selectpicker" title="Select a team member"
+            <select id="member" class="selectpicker" title="Select a team member"
                     onchange="location = this.options[this.selectedIndex].value;">
                 {% for member in team_list %}
                     {% if member.identifier == member_id %}
