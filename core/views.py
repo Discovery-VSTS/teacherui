@@ -5,8 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .forms import UserForm
+
 import requests
 import json
+import logging
 
 
 def register_user(request):
@@ -30,6 +32,63 @@ def register_user(request):
         return render(request, 'registration/register.html', {'form': form})
 
 
+def convert_to_line_graph_data_structure(distribution_json, member_dict_ids):
+    print("Convert line graph")
+    print(distribution_json)
+    dates = []
+    # Store member with its distribution
+    member = dict()
+    for data in distribution_json:
+        week = data['week']
+        print("Week:", week)
+
+        points = data['given_points']
+        print("Points", points)
+
+        dates.append(week)
+        for point_dist in points:
+            to_member = point_dist['to_member']
+            print("To_member:", to_member)
+            point = point_dist['points']
+            print("point:", point)
+            name = member_dict_ids[to_member]
+
+            try:
+                if name in member.keys():
+                    member[name].append(point)
+                else:
+                    member[name] = [point]
+
+            except KeyError as e:
+                logging.warn(e)
+
+            except Exception as e:
+                logging.error(e)
+
+    return dates, member
+
+
+def resolve_member_ids(member_ids, instance_id):
+    try:
+        decoding_dict = dict()
+        members = member_ids[instance_id]['members']
+
+        print("Member details", members)
+
+        for member in members:
+            ins_id = member['identifier']
+            name = member['name']
+            decoding_dict[ins_id] = name
+
+        return decoding_dict
+    except KeyError as e:
+        logging.error(e)
+        return {}
+
+    except Exception as e:
+        logging.error(e)
+
+
 @login_required
 def tab_100_points(request):
     template = get_template('tabs/tab_100_points.html')
@@ -38,9 +97,22 @@ def tab_100_points(request):
     r = requests.get(BASE_URL.format('v1/teams/all/', ''))
     instance_list = r.json()
 
+    print("instance_list", instance_list)
+
     TEAM = request.GET.get('team', '')
     r = requests.get(BASE_URL.format('v1/team/points/', '?instance_id=%s' % TEAM))
     total_points_team = r.json()
+
+    member_decoding_dict = resolve_member_ids(instance_list, TEAM)
+
+    print("Decoding dict", member_decoding_dict)
+
+    # Get history of point distribution
+    params = {'instance_id': TEAM}
+    point_distribution_r = requests.get(BASE_URL.format('v1/points/distribution/history', ''), params=params)
+    point_distribution_data = point_distribution_r.json()
+
+    dates, members = convert_to_line_graph_data_structure(point_distribution_data, member_decoding_dict)
 
     # Add in elements for point distribution
 
@@ -56,6 +128,8 @@ def tab_100_points(request):
 
     return HttpResponse(template.render(Context(
         {
+            'dates': json.dumps({'dates': dates}),
+            'line_chart_data': json.dumps({'line_chart_data': members}),
             'members': piechart_labels,
             'labels': json.dumps({"labels": piechart_labels}),
             'datasets': json.dumps({"datasets": piechart_datasets}),
