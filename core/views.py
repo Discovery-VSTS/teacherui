@@ -175,7 +175,6 @@ def tab_codemetrics(request):
     r = requests.get(CM_BASE_URL.format('code-score/gpa/', '?github_repo=%s&instance_id=%s&user_email=%s'
                                         % (REPO_NAME, TEAM_ID, MEMBER_EMAIL)))
 
-
     if r.status_code == 200:
         gpa = r.json()
     else:
