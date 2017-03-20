@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <select class="selectpicker" title="Select a team to display"
                 onchange="location = this.options[this.selectedIndex].value;">
             {% for key, value in instance_list.items %}
@@ -18,7 +18,7 @@
     </div>
 
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         {% if repo_list|length %}
             <select class="selectpicker" title="Select repository"
                     onchange="location = this.options[this.selectedIndex].value;">
@@ -39,23 +39,19 @@
     </div>
 
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         {% if team_list|length %}
-            <select class="selectpicker" title="Select a team member"
-                    onchange="location = this.options[this.selectedIndex].value;" id="member-picker">
+            <select class="selectpicker" title="Select a team member" id="member-picker" multiple>
                 {% for member in team_list %}
-                    {% if member.identifier == member_id %}
-                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo_id }}&repo_name={{ repo_name }}&member_id={{ member.identifier }}&member_email={{ member.email }}&member_name={{ member.name }}"
-                                selected="selected">
-                            {{ member.name }}
-                        </option>
-                    {% else %}
-                        <option value="{{ member.name }}">
-                            {{ member.name }}
-                        </option>
-                    {% endif %}
+                    <option value="{{ member.name }}">
+                        {{ member.name }}
+                    </option>
                 {% endfor %}
             </select>
         {% endif %}
+    </div>
+
+    <div class="col-md-3">
+        <button type="button" class="btn btn-primary" onclick="">Compare</button>
     </div>
 </div>
