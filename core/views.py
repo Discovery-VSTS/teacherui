@@ -192,6 +192,8 @@ def tab_codemetrics(request):
     line_chart_data_delete = dict()
     line_chart_data_edit = dict()
 
+    date_sorted_time = []
+
     for member in team_list:
         line_chart_data_delete[member['name']] = []
         line_chart_data_edit[member['name']] = []
@@ -206,8 +208,6 @@ def tab_codemetrics(request):
             sorted_time.append(int(epoch))
 
         sorted_time = sorted(sorted_time)
-
-        date_sorted_time = []
 
         i = 0
         for epoch in sorted_time:
@@ -308,6 +308,7 @@ def tab_codemetrics(request):
             'add_data': json.dumps(line_chart_data_add),
             'delete_data': json.dumps(line_chart_data_delete),
             'edit_data': json.dumps(line_chart_data_edit),
+            'dates': json.dumps({'dates': date_sorted_time}),
             'instance_list': instance_list,
             'repo_list': repo_list,
             'team_list': team_list,
