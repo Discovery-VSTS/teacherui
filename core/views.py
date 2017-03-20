@@ -155,6 +155,7 @@ def tab_codemetrics(request):
     REPO_ID = request.GET.get('repo_id', '')
     MEMBER_ID = request.GET.get('member_id', '')
     MEMBER_EMAIL = request.GET.get('member_email', '')
+    MEMBER_NAME = request.GET.get('member_name', '')
     TEAM_NAME = request.GET.get('team_name', '')
     REPO_NAME = request.GET.get('repo_name', '')
 
@@ -175,11 +176,18 @@ def tab_codemetrics(request):
     r = requests.get(CM_BASE_URL.format('code-score/gpa/', '?github_repo=%s&instance_id=%s&user_email=%s'
                                         % (REPO_NAME, TEAM_ID, MEMBER_EMAIL)))
 
-
     if r.status_code == 200:
         gpa = r.json()
     else:
         gpa = {}
+
+    r = requests.get(BASE_URL_CODEMETRICS.format('repo-stats/commit-stats/',
+                                                 '?instance_name=%s&repo_name=%s' % (TEAM_NAME, REPO_NAME)))
+
+    if r.status_code == 200:
+        commit_stats = r.json()
+    else:
+        commit_stats = {}
 
     return HttpResponse(template.render(Context(
         {
@@ -191,8 +199,10 @@ def tab_codemetrics(request):
             'repo_id': REPO_ID,
             'repo_name': REPO_NAME,
             'member_id': MEMBER_ID,
+            'member_name': MEMBER_NAME,
             'member_email': MEMBER_EMAIL,
             'gpa_object': gpa,
+            'commit_stats': json.dumps(commit_stats),
         }
     )))
 

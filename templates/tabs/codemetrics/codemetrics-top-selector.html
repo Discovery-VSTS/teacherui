@@ -24,12 +24,12 @@
                     onchange="location = this.options[this.selectedIndex].value;">
                 {% for repo in repo_list %}
                     {% if repo.name == repo_name %}
-                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo.id }}&repo_name={{ repo.name }}&member_id={{ member_id }}&member_email={{ member_email }}"
+                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo.id }}&repo_name={{ repo.name }}&member_id={{ member_id }}&member_email={{ member_email }}&member_name={{ member_name }}"
                                 selected="selected">
                             {{ repo.name }}
                         </option>
                     {% else %}
-                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo.id }}&repo_name={{ repo.name }}&member_id={{ member_id }}&member_email={{ member_email }}">
+                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo.id }}&repo_name={{ repo.name }}&member_id={{ member_id }}&member_email={{ member_email }}&member_name={{ member_name }}">
                             {{ repo.name }}
                         </option>
                     {% endif %}
@@ -42,15 +42,15 @@
     <div class="col-md-4">
         {% if team_list|length %}
             <select class="selectpicker" title="Select a team member"
-                    onchange="location = this.options[this.selectedIndex].value;">
+                    onchange="location = this.options[this.selectedIndex].value;" id="member-picker">
                 {% for member in team_list %}
                     {% if member.identifier == member_id %}
-                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo_id }}&repo_name={{ repo_name }}&member_id={{ member.identifier }}&member_email={{ member.email }}"
+                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo_id }}&repo_name={{ repo_name }}&member_id={{ member.identifier }}&member_email={{ member.email }}&member_name={{ member.name }}"
                                 selected="selected">
                             {{ member.name }}
                         </option>
                     {% else %}
-                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo_id }}&repo_name={{ repo_name }}&member_id={{ member.identifier }}&member_email={{ member.email }}">
+                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo_id }}&repo_name={{ repo_name }}&member_id={{ member.identifier }}&member_email={{ member.email }}&member_name={{ member.name }}">
                             {{ member.name }}
                         </option>
                     {% endif %}
@@ -58,6 +58,4 @@
             </select>
         {% endif %}
     </div>
-
-
 </div>
