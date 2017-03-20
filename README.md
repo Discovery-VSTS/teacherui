@@ -8,17 +8,17 @@ See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wirefra
 
 ### [100 Points Tab](https://github.com/Discovery-VSTS/teacherui/blob/master/templates/tabs/tab_100_points.html)
 
-**100pt-top-selector** - Yichen
+**100pt-top-selector** - Yichen - Done
 
-**score-table** - Ricard
+**score-table** - Ricard - Done
 
 **distribution-analysis** - Minh/Yichen (update size of pie chart)
 
 ### [Code Metrics Tab](https://github.com/Discovery-VSTS/teacherui/blob/master/templates/tabs/tab_codemetrics.html)
 
-**codemetrics-top-selector** - Ricard
+**codemetrics-top-selector** - Ricard - Done
 
-**gpa-score** - Yichen
+**gpa-score** - Yichen - Done
 
 **commit-stats** - Ricard - Done
 
