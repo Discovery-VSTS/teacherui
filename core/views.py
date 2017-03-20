@@ -189,6 +189,15 @@ def tab_codemetrics(request):
     else:
         commit_stats = {}
 
+    r = requests.get(BASE_URL_CODEMETRICS.format('code-score/test_coverage/',
+                                                 '?instance_id=%s&github_repo=%s&user_email=%s'
+                                                 % (TEAM_ID, REPO_NAME, MEMBER_EMAIL)))
+
+    if r.status_code == 200:
+        test_coverage = r.json()
+    else:
+        test_coverage = {}
+
     return HttpResponse(template.render(Context(
         {
             'instance_list': instance_list,
@@ -203,6 +212,7 @@ def tab_codemetrics(request):
             'member_email': MEMBER_EMAIL,
             'gpa_object': gpa,
             'commit_stats': json.dumps(commit_stats),
+            'test_coverage': json.dumps(test_coverage),
         }
     )))
 
