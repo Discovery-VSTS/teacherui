@@ -20,6 +20,6 @@ See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wirefra
 
 **gpa-score** - Yichen - Done
 
-**commit-stats** - Ricard
+**commit-stats** - Ricard - Done
 
 **code-coverage** - Yichen
