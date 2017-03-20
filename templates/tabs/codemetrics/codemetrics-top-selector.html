@@ -50,7 +50,7 @@
                             {{ member.name }}
                         </option>
                     {% else %}
-                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo_id }}&repo_name={{ repo_name }}&member_id={{ member.identifier }}&member_email={{ member.email }}&member_name={{ member.name }}">
+                        <option value="{{ member.name }}">
                             {{ member.name }}
                         </option>
                     {% endif %}
