@@ -37,11 +37,18 @@
             piechart_data = {};
 
             if (sum_points > 0) {
+                var colors = [];
+
+                for(var i=0; i < point_data_json.datasets.length; i++) {
+                    colors.push('#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6));
+                }
+
                 piechart_data = {
                     labels: labels_data_json.labels,
                     datasets: [
                         {
-                            data: point_data_json.datasets
+                            data: point_data_json.datasets,
+                            backgroundColor: colors
                         }
                     ]
                 };
@@ -75,17 +82,74 @@
         }
     }
 
-    function render_line_chart_between_selected_members(members) {
+    function render_line_chart_between_selected_members() {
+        console.log($('#teamID').val());
+        var people_compare = $('#member-picker').val();
+        console.log(people_compare);
+        var dates_data = '{{ dates|escapejs }}';
+        var line_chart_data = '{{ line_chart_data|escapejs }}';
 
+        console.log(dates_data);
+        console.log(line_chart_data);
+
+        var dates_array = JSON.parse(dates_data).dates;
+        var member_points = JSON.parse(line_chart_data).line_chart_data;
+
+        console.log(dates_array);
+        console.log(member_points);
+
+        var datasets = [];
+
+        var keys = Object.keys(member_points);
+
+        for (var key in member_points) {
+            if (people_compare.indexOf(key) >= 0) {
+                var points = member_points[key];
+                var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                var dataset = {
+                    label: key,
+                    data: points,
+                    pointBackgroundColor: color,
+                    pointBorderColor: color,
+                    borderColor: color
+                };
+                datasets.push(dataset);
+            }
+        }
+
+        console.log(keys);
+
+        var data = {
+            labels: dates_array,
+            datasets: datasets
+        };
+
+        if (pieChart != null)
+            pieChart.destroy();
+
+        var ctx = document.getElementById('pointDist').getContext("2d");
+        ctx.canvas.width = 100;
+        ctx.canvas.height = 100;
+
+        pieChart = new Chart(ctx, {
+                type: 'line',
+                data: data,
+                options: {
+                    animation: {
+                        animateScale: true
+                    }
+                }
+            });
     }
 </script>
 
 <label><input type="checkbox" onclick="render_chart()" id="checkbox-members" checked="checked"> All Members</label>
-<select id="member-picker" class="selectpicker" onselect="render_line_chart_between_selected_members(this)" multiple>
+<select id="member-picker" class="selectpicker" multiple>
     {% for member in members %}
             <option value="{{ member }}">{{ member }}</option>
     {% endfor %}
 </select>
+<button type="button" class="btn btn-primary" onclick="render_line_chart_between_selected_members()">Compare</button>
 <div id="dataDist" class="chart-container">
     <canvas id="pointDist" style="max-height: 501px; max-width: 501px"></canvas>
 </div>
