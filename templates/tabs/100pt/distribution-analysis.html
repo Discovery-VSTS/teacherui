@@ -37,11 +37,18 @@
             piechart_data = {};
 
             if (sum_points > 0) {
+                var colors = [];
+
+                for(var i=0; i < point_data_json.datasets.length; i++) {
+                    colors.push('#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6));
+                }
+
                 piechart_data = {
                     labels: labels_data_json.labels,
                     datasets: [
                         {
-                            data: point_data_json.datasets
+                            data: point_data_json.datasets,
+                            backgroundColor: colors
                         }
                     ]
                 };
@@ -98,10 +105,13 @@
         for (var key in member_points) {
             if (people_compare.indexOf(key) >= 0) {
                 var points = member_points[key];
+                var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
                 var dataset = {
                     label: key,
                     data: points,
-                    pointBackgroundColor: "#fff"
+                    pointBackgroundColor: color,
+                    pointBorderColor: color,
+                    borderColor: color
                 };
                 datasets.push(dataset);
             }
