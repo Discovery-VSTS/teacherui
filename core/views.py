@@ -174,9 +174,13 @@ def tab_codemetrics(request):
         if team_id == TEAM_ID:
             team_list = team['members']
             print("team list", team_list)
-            
+
+    print("TEAM ID", TEAM_ID)
+    print("EMAIL", MEMBER_EMAIL)
+    print("REPO NAME", REPO_NAME)
+
     r = requests.get(CM_BASE_URL.format('code-score/gpa/', '?github_repo=%s&instance_id=%s&user_email=%s'
-                                        % (REPO_NAME, TEAM_ID, MEMBER_EMAIL)))
+                                        % (REPO_NAME, TEAM_ID, "zcabmdo@ucl.ac.uk")))
 
     if r.status_code == 200:
         gpa = r.json()

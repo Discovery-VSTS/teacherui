@@ -1,6 +1,8 @@
 <script type="text/javascript">
     var addChart;
     var delChart;
+    var gpa = '{{ gpa_object|escapejs }}';
+    console.log("GPA:" + gpa);
     $(document).ready(function() {
         render_filtered();
     });
@@ -26,7 +28,7 @@
                 var points = add_data_json[key];
                 var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
                 var dataset = {
-                    label: key,
+                    label: '# of code added by '+ key,
                     data: points,
                     pointBackgroundColor: color,
                     pointBorderColor: color,
@@ -41,7 +43,7 @@
                 var points = add_data_json[key];
                 var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
                 var dataset = {
-                    label: key,
+                    label: '# of code deleted by ' + key,
                     data: points,
                     pointBackgroundColor: color,
                     pointBorderColor: color,

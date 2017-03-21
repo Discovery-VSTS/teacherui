@@ -2,4 +2,6 @@
     <h1>GPA Score <span id="gpa">{{ gpa_object.gpa }}</span></h1>
 {% elif not gpa_object.gpa and member_email and team_id and repo_name %}
     <h1>This team member hasn't contributed to this repository yet.</h1>
+{% else %}
+     <h1>GPA Score <span id="gpa">N/A</span></h1>
 {% endif %}
