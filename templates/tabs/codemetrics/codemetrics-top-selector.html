@@ -96,8 +96,6 @@
 
     function render_chart_coverage() {
         var ctx = document.getElementById('codeCoverage').getContext("2d");
-        ctx.canvas.width = 100;
-        ctx.canvas.height = 100;
         var test_coverage = '{{ test_coverage|escapejs }}';
         var member_name = '{{ member_name|escapejs }}';
         var test_coverage_json = JSON.parse(test_coverage);
