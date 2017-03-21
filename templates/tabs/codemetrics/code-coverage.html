@@ -7,8 +7,6 @@
 
     function render_chart_coverage() {
         var ctx = document.getElementById('codeCoverage').getContext("2d");
-        ctx.canvas.width = 100;
-        ctx.canvas.height = 100;
 
         var test_coverage = '{{ test_coverage|escapejs }}';
         var member_name = '{{ member_name|escapejs }}';
@@ -53,7 +51,7 @@
 
 <div class="row">
 <div id="dataCoverage" class="chart-container">
-    <canvas id="codeCoverage" style="max-height: 501px; max-width: 501px"></canvas>
+    <canvas id="codeCoverage" ></canvas>
 </div>
 </div>
 {% endif %}

@@ -7,11 +7,10 @@
 
     function render_chart() {
         var ctxAdded = document.getElementById('codeAddedDist').getContext("2d");
-        ctxAdded.canvas.width = 100;
-        ctxAdded.canvas.height = 100;
+        ctxAdded.canvas.height = 250;
+
         var ctxDeleted = document.getElementById('codeDelDist').getContext("2d");
-        ctxDeleted.canvas.width = 100;
-        ctxDeleted.canvas.height = 100;
+        ctxDeleted.canvas.height = 250;
 
         var commit_stats = '{{ commit_stats|escapejs }}';
         var member_name = '{{ member_name|escapejs }}';
@@ -94,11 +93,11 @@
 </script>
 
 <div class="row">
-<div id="dataDist" class="chart-container">
-    <canvas id="codeAddedDist" style="max-height: 501px; max-width: 501px"></canvas>
+<div id="dataDist" class="col-md-6 chart-container">
+    <canvas id="codeAddedDist"></canvas>
 </div>
-<div id="dataDist" class="chart-container">
-    <canvas id="codeDelDist" style="max-height: 501px; max-width: 501px"></canvas>
+<div id="dataDist" class="col-md-6 chart-container">
+    <canvas id="codeDelDist" ></canvas>
 </div>
 </div>
 {% endif %}
