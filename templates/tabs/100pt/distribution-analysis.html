@@ -9,12 +9,14 @@
     function render_chart() {
 
         if (document.getElementById("checkbox-members").checked == true) {
+            $('#pointDist').show();
+            $('#memberCompare').hide();
             $('#member-picker').attr('disabled', true);
             $('#member-picker').selectpicker('refresh');
 
             var ctx = document.getElementById('pointDist').getContext("2d");
-            ctx.canvas.width = 100;
-            ctx.canvas.height = 100;
+            //ctx.canvas.width = 100;
+            //ctx.canvas.height = 100;
 
             var labels_data = '{{ labels|escapejs }}';
             var point_data = '{{ datasets|escapejs }}';
@@ -79,6 +81,8 @@
             $('#member-picker').selectpicker('refresh');
 
             pieChart.destroy();
+            $('#pointDist').hide();
+            $('#memberCompare').show();
         }
     }
 
@@ -127,9 +131,9 @@
         if (pieChart != null)
             pieChart.destroy();
 
-        var ctx = document.getElementById('pointDist').getContext("2d");
-        ctx.canvas.width = 100;
-        ctx.canvas.height = 100;
+        var ctx = document.getElementById('memberCompare').getContext("2d");
+        //ctx.canvas.width = 100;
+        //ctx.canvas.height = 100;
 
         pieChart = new Chart(ctx, {
                 type: 'line',
@@ -152,4 +156,5 @@
 <button type="button" class="btn btn-primary" onclick="render_line_chart_between_selected_members()">Compare</button>
 <div id="dataDist" class="chart-container">
     <canvas id="pointDist" style="max-height: 501px; max-width: 501px"></canvas>
+    <canvas id="memberCompare"></canvas>
 </div>
