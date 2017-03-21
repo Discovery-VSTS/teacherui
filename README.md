@@ -12,7 +12,7 @@ See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wirefra
 
 **score-table** - Ricard - Done
 
-**distribution-analysis** - Minh/Yichen (update size of pie chart)
+**distribution-analysis** - Minh/Yichen - Done
 
 ### [Code Metrics Tab](https://github.com/Discovery-VSTS/teacherui/blob/master/templates/tabs/tab_codemetrics.html)
 
@@ -22,4 +22,4 @@ See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wirefra
 
 **commit-stats** - Ricard - Done
 
-**code-coverage** - Yichen
+**code-coverage** Minh/Yichen
