@@ -136,12 +136,14 @@ body {
 
 .chart-container {
     padding-top: 30px;
-    padding-left: auto;
-    padding-right: auto;
     display: block;
 }
 
-canvas#pointDist{
+.chart-container canvas{
     margin-left: auto;
     margin-right: auto;
+}
+
+canvas#memberCompare{
+    width: 1200px;
 }
