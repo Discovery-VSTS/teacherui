@@ -1,5 +1,146 @@
+<script type="text/javascript">
+    var addChart;
+    var delChart;
+    var gpa = '{{ gpa_object|escapejs }}';
+    console.log("GPA:" + gpa);
+    $(document).ready(function() {
+        render_filtered();
+        render_chart_coverage();
+    });
+
+    function render_filtered() {
+        var accepted_members = $('#member-picker').val();
+        var add_data = '{{ add_data|escapejs }}';
+        var delete_data = '{{ delete_data|escapejs }}';
+        var dates = '{{ dates|escapejs }}';
+
+        var dates_json = JSON.parse(dates);
+        var add_data_json = JSON.parse(add_data);
+        var delete_data_json = JSON.parse(delete_data);
+
+        var data_add_dataset = [];
+        var data_delete_dataset = [];
+
+        var keys = Object.keys(add_data_json);
+        console.log("Add keys", keys);
+
+        for (var key in add_data_json) {
+            if (accepted_members.indexOf(key) >= 0) {
+                var points = add_data_json[key];
+                var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                var dataset = {
+                    label: '# of code added by '+ key,
+                    data: points,
+                    pointBackgroundColor: color,
+                    pointBorderColor: color,
+                    borderColor: color
+                };
+                data_add_dataset.push(dataset);
+            }
+        }
+
+        for (var key in delete_data_json) {
+            if (accepted_members.indexOf(key) >= 0) {
+                var points = delete_data_json[key];
+                var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                var dataset = {
+                    label: '# of code deleted by ' + key,
+                    data: points,
+                    pointBackgroundColor: color,
+                    pointBorderColor: color,
+                    borderColor: color
+                };
+                data_delete_dataset.push(dataset);
+            }
+        }
+
+        var add_datasets = {
+            labels: dates_json.dates,
+            datasets: data_add_dataset
+        };
+
+        var delete_datasets = {
+            labels: dates_json.dates,
+            datasets: data_delete_dataset
+        };
+
+        var ctxAdd = document.getElementById('codeAddedDist').getContext('2d');
+        var ctxDelete = document.getElementById('codeDelDist').getContext('2d');
+
+        if (addChart != null)
+            addChart.destroy();
+
+        addChart = new Chart(ctxAdd, {
+            type: 'line',
+            data: add_datasets,
+            options: {
+                animation: {
+                    animateScale: true
+                }
+            }
+        });
+
+        if (delChart != null)
+            delChart.destroy();
+
+        delChart = new Chart(ctxDelete, {
+            type: 'line',
+            data: delete_datasets,
+            options: {
+                animation: {
+                    animateScale: true
+                }
+            }
+        });
+    }
+
+    function render_chart_coverage() {
+        var ctx = document.getElementById('codeCoverage').getContext("2d");
+        ctx.canvas.width = 100;
+        ctx.canvas.height = 100;
+        var test_coverage = '{{ test_coverage|escapejs }}';
+        var member_name = '{{ member_name|escapejs }}';
+        var test_coverage_json = JSON.parse(test_coverage);
+
+        var dates_array = [];
+        var coveragePoints = [];
+        var data_array = test_coverage_json['coverage-history'].data;
+        for (var idx = 0; idx < data_array.length; idx++) {
+            var attributes = data_array[idx]['attributes'];
+            var date = new Date(attributes.committed_at.toString());
+            var dateStr = date.toString().slice(4,10);
+            var covered_percernt = attributes.covered_percent;
+            dates_array.push(dateStr);
+            coveragePoints.push({'x': idx, 'y': covered_percernt});
+        }
+        var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+        var dataset = [{
+                label: 'Code Coverage',
+                data: coveragePoints,
+                pointBackgroundColor: color,
+                pointBorderColor: color,
+                borderColor: color
+        }];
+
+        var data = {
+            labels: dates_array,
+            datasets: dataset
+        };
+
+        chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                animation: {
+                    animateScale: true
+                }
+            }
+        });
+    }
+</script>
+
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <select id="team_id" class="selectpicker" title="Select a team to display"
                 onchange="location = this.options[this.selectedIndex].value;">
             {% for key, value in instance_list.items %}
@@ -18,7 +159,7 @@
     </div>
 
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         {% if repo_list|length %}
             <select id="repo" class="selectpicker" title="Select repository"
                     onchange="location = this.options[this.selectedIndex].value;">
@@ -39,23 +180,19 @@
     </div>
 
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         {% if team_list|length %}
-            <select class="selectpicker" title="Select a team member"
-                    onchange="location = this.options[this.selectedIndex].value;" id="member-picker">
+            <select class="selectpicker" title="Select a team member" id="member-picker" multiple>
                 {% for member in team_list %}
-                    {% if member.identifier == member_id %}
-                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo_id }}&repo_name={{ repo_name }}&member_id={{ member.identifier }}&member_email={{ member.email }}&member_name={{ member.name }}"
-                                selected="selected">
-                            {{ member.name }}
-                        </option>
-                    {% else %}
-                        <option value="/app/codemetrics/?team_id={{ team_id }}&team_name={{ team_name }}&repo_id={{ repo_id }}&repo_name={{ repo_name }}&member_id={{ member.identifier }}&member_email={{ member.email }}&member_name={{ member.name }}">
-                            {{ member.name }}
-                        </option>
-                    {% endif %}
+                    <option value="{{ member.name }}" selected>
+                        {{ member.name }}
+                    </option>
                 {% endfor %}
             </select>
         {% endif %}
+    </div>
+
+    <div class="col-md-3">
+        <button type="button" class="btn btn-primary" onclick="render_filtered()">Compare</button>
     </div>
 </div>

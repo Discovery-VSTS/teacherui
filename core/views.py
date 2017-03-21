@@ -9,6 +9,7 @@ from .forms import UserForm
 import requests
 import json
 import logging
+import time
 
 
 def register_user(request):
@@ -172,9 +173,14 @@ def tab_codemetrics(request):
     for team_id, team in teams.items():
         if team_id == TEAM_ID:
             team_list = team['members']
-            
+            print("team list", team_list)
+
+    print("TEAM ID", TEAM_ID)
+    print("EMAIL", MEMBER_EMAIL)
+    print("REPO NAME", REPO_NAME)
+
     r = requests.get(CM_BASE_URL.format('code-score/gpa/', '?github_repo=%s&instance_id=%s&user_email=%s'
-                                        % (REPO_NAME, TEAM_ID, MEMBER_EMAIL)))
+                                        % (REPO_NAME, TEAM_ID, "zcabmdo@ucl.ac.uk")))
 
     if r.status_code == 200:
         gpa = r.json()
@@ -184,14 +190,117 @@ def tab_codemetrics(request):
     r = requests.get(BASE_URL_CODEMETRICS.format('repo-stats/commit-stats/',
                                                  '?instance_name=%s&repo_name=%s' % (TEAM_NAME, REPO_NAME)))
 
+    # Add all members into the list
+
+    line_chart_data_add = dict()
+    line_chart_data_delete = dict()
+    line_chart_data_edit = dict()
+
+    date_sorted_time = []
+
+    for member in team_list:
+        line_chart_data_delete[member['name']] = []
+        line_chart_data_edit[member['name']] = []
+        line_chart_data_add[member['name']] = []
+
     if r.status_code == 200:
         commit_stats = r.json()
+        print("Commit stats", commit_stats)
+
+        sorted_time = []
+        for epoch in commit_stats.keys():
+            sorted_time.append(int(epoch))
+
+        sorted_time = sorted(sorted_time)
+
+        i = 0
+        for epoch in sorted_time:
+            date_sorted_time.append(time.strftime('%Y-%m-%d', time.localtime(epoch)))
+            commit_data = commit_stats[str(epoch)]
+            print("Commit data", commit_data)
+            for commit in commit_data:
+                data = commit['commit']
+                author = data['author']
+                name = author['name']
+                email = author['email']
+                changes = data['changes']
+                add = changes['add']
+                delete = changes['delete']
+                edit = changes['edit']
+
+                # Map to the same user
+                if email == 'zcabrga@ucl.ac.uk' or email == 'gascons1995@gmail.com':
+                    if 'Ricard Gascons Gascon' in line_chart_data_add:
+                        if len(line_chart_data_add['Ricard Gascons Gascon']) == 0:
+                            line_chart_data_add['Ricard Gascons Gascon'] = [add]
+                        else:
+                            line_chart_data_add['Ricard Gascons Gascon'][len(line_chart_data_add['Ricard Gascons Gascon'])-1] += add
+                    else:
+                        line_chart_data_add['Ricard Gascons Gascon'] = [add]
+
+                    if 'Ricard Gascons Gascon' in line_chart_data_delete:
+                        if len(line_chart_data_delete['Ricard Gascons Gascon']) == 0:
+                            line_chart_data_delete['Ricard Gascons Gascon'] = [delete]
+                        else:
+                            line_chart_data_delete['Ricard Gascons Gascon'][len(line_chart_data_delete['Ricard Gascons Gascon'])-1] += delete
+                    else:
+                        line_chart_data_delete['Ricard Gascons Gascon'] = [delete]
+
+                    if 'Ricard Gascons Gascon' in line_chart_data_edit:
+                        if len(line_chart_data_edit['Ricard Gascons Gascon']) == 0:
+                            line_chart_data_edit['Ricard Gascons Gascon'] = [edit]
+                        else:
+                            line_chart_data_edit['Ricard Gascons Gascon'][len(line_chart_data_edit['Ricard Gascons Gascon'])-1] += edit
+                    else:
+                        line_chart_data_edit['Ricard Gascons Gascon'] = [edit]
+                else:
+                    print("name={}".format(name))
+                    if name in line_chart_data_add:
+                        if len(line_chart_data_add[name]) == 0:
+                            line_chart_data_add[name] = [add]
+                        else:
+                            line_chart_data_add[name][len(line_chart_data_add[name])-1] += add
+                    else:
+                        line_chart_data_add[name] = [add]
+
+                    if name in line_chart_data_delete:
+                        if len(line_chart_data_delete[name]) == 0:
+                            line_chart_data_delete[name] = [delete]
+                        else:
+                            line_chart_data_delete[name][len(line_chart_data_delete[name])-1] += delete
+                    else:
+                        line_chart_data_delete[name] = [delete]
+
+                    if name in line_chart_data_edit:
+                        if len(line_chart_data_edit[name]) == 0:
+                            line_chart_data_edit[name] = [edit]
+                        else:
+                            line_chart_data_edit[name][len(line_chart_data_edit[name])-1] += edit
+                    else:
+                        line_chart_data_edit[name] = [edit]
+            i += 1
+            # Go through to see if everyone has the same length
+            members = line_chart_data_delete.keys()
+            for member in members:
+                if len(line_chart_data_delete[member]) < i:
+                    line_chart_data_delete[member].append(0)
+                if len(line_chart_data_add[member]) < i:
+                    line_chart_data_add[member].append(0)
+                if len(line_chart_data_edit[member]) < i:
+                    line_chart_data_edit[member].append(0)
+
+            print("i={}".format(i))
+            print("DELETE ", line_chart_data_delete)
+            print("ADD ", line_chart_data_add)
+            print("EDIT ", line_chart_data_edit)
+            print("\n")
+
     else:
         commit_stats = {}
 
     r = requests.get(BASE_URL_CODEMETRICS.format('code-score/test_coverage/',
                                                  '?instance_id=%s&github_repo=%s&user_email=%s'
-                                                 % (TEAM_ID, REPO_NAME, MEMBER_EMAIL)))
+                                                 % (TEAM_ID, REPO_NAME, "zcabmdo@ucl.ac.uk")))
 
     if r.status_code == 200:
         test_coverage = r.json()
@@ -200,6 +309,10 @@ def tab_codemetrics(request):
 
     return HttpResponse(template.render(Context(
         {
+            'add_data': json.dumps(line_chart_data_add),
+            'delete_data': json.dumps(line_chart_data_delete),
+            'edit_data': json.dumps(line_chart_data_edit),
+            'dates': json.dumps({'dates': date_sorted_time}),
             'instance_list': instance_list,
             'repo_list': repo_list,
             'team_list': team_list,

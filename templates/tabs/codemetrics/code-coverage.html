@@ -1,10 +1,8 @@
-<script type="text/javascript">
-    $(document).ready(function() {
-        console.log("Team ID: " + $('#team_id').val());
-        console.log("Repo: " + $('#repo').val());
-        console.log("Member: " + $('#member').val());
-    });
-    function get_project_name() {
 
-    }
-</script>
+{% if team_id and repo_name %}
+<div class="row">
+<div id="dataCoverage" class="chart-container">
+    <canvas id="codeCoverage" style="max-height: 501px; max-width: 501px"></canvas>
+</div>
+</div>
+{% endif %}
