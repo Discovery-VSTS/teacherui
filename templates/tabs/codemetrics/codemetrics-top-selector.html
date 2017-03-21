@@ -40,7 +40,7 @@
 
         for (var key in delete_data_json) {
             if (accepted_members.indexOf(key) >= 0) {
-                var points = add_data_json[key];
+                var points = delete_data_json[key];
                 var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
                 var dataset = {
                     label: '# of code deleted by ' + key,
