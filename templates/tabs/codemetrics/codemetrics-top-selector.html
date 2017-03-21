@@ -2,6 +2,7 @@
     var addChart;
     var delChart;
     $(document).ready(function() {
+        render_filtered();
     });
 
     function render_filtered() {
@@ -19,6 +20,36 @@
 
         var keys = Object.keys(add_data_json);
         console.log("Add keys", keys);
+
+        for (var key in add_data_json) {
+            if (accepted_members.indexOf(key) >= 0) {
+                var points = add_data_json[key];
+                var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                var dataset = {
+                    label: key,
+                    data: points,
+                    pointBackgroundColor: color,
+                    pointBorderColor: color,
+                    borderColor: color
+                };
+                data_add_dataset.push(dataset);
+            }
+        }
+
+        for (var key in delete_data_json) {
+            if (accepted_members.indexOf(key) >= 0) {
+                var points = add_data_json[key];
+                var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+                var dataset = {
+                    label: key,
+                    data: points,
+                    pointBackgroundColor: color,
+                    pointBorderColor: color,
+                    borderColor: color
+                };
+                data_delete_dataset.push(dataset);
+            }
+        }
 
         var add_datasets = {
             labels: dates_json.dates,
@@ -49,7 +80,7 @@
         if (delChart != null)
             delChart.destroy();
 
-        delChart = new Chart(ctxAdd, {
+        delChart = new Chart(ctxDelete, {
             type: 'line',
             data: delete_datasets,
             options: {
