@@ -300,7 +300,7 @@ def tab_codemetrics(request):
 
     r = requests.get(BASE_URL_CODEMETRICS.format('code-score/test_coverage/',
                                                  '?instance_id=%s&github_repo=%s&user_email=%s'
-                                                 % (TEAM_ID, REPO_NAME, MEMBER_EMAIL)))
+                                                 % (TEAM_ID, REPO_NAME, "zcabmdo@ucl.ac.uk")))
 
     if r.status_code == 200:
         test_coverage = r.json()

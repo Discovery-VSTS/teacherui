@@ -5,6 +5,7 @@
     console.log("GPA:" + gpa);
     $(document).ready(function() {
         render_filtered();
+        render_chart_coverage();
     });
 
     function render_filtered() {
@@ -85,6 +86,50 @@
         delChart = new Chart(ctxDelete, {
             type: 'line',
             data: delete_datasets,
+            options: {
+                animation: {
+                    animateScale: true
+                }
+            }
+        });
+    }
+
+    function render_chart_coverage() {
+        var ctx = document.getElementById('codeCoverage').getContext("2d");
+        ctx.canvas.width = 100;
+        ctx.canvas.height = 100;
+        var test_coverage = '{{ test_coverage|escapejs }}';
+        var member_name = '{{ member_name|escapejs }}';
+        var test_coverage_json = JSON.parse(test_coverage);
+
+        var dates_array = [];
+        var coveragePoints = [];
+        var data_array = test_coverage_json['coverage-history'].data;
+        for (var idx = 0; idx < data_array.length; idx++) {
+            var attributes = data_array[idx]['attributes'];
+            var date = new Date(attributes.committed_at.toString());
+            var dateStr = date.toString().slice(4,10);
+            var covered_percernt = attributes.covered_percent;
+            dates_array.push(dateStr);
+            coveragePoints.push({'x': idx, 'y': covered_percernt});
+        }
+        var color = '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+        var dataset = [{
+                label: 'Code Coverage',
+                data: coveragePoints,
+                pointBackgroundColor: color,
+                pointBorderColor: color,
+                borderColor: color
+        }];
+
+        var data = {
+            labels: dates_array,
+            datasets: dataset
+        };
+
+        chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
             options: {
                 animation: {
                     animateScale: true
