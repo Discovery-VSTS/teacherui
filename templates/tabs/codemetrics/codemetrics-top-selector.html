@@ -1,3 +1,65 @@
+<script type="text/javascript">
+    var addChart;
+    var delChart;
+    $(document).ready(function () {
+        function render_filtered() {
+            var accepted_members = $('#member-picker').val();
+            var add_data = '{{ add_data|escapejs }}';
+            var delete_data = '{{ delete_data|escapejs }}';
+            var dates = '{{ dates|escapejs }}';
+
+            var dates_json = JSON.parse(dates);
+            var add_data_json = JSON.parse(add_data);
+            var delete_data_json = JSON.parse(delete_data);
+
+            var data_add_dataset = [];
+            var data_delete_dataset = [];
+
+            var keys = Object.keys(add_data_json);
+            console.log("Add keys", keys);
+
+            var add_datasets = {
+                labels: dates_json.dates,
+                datasets: data_add_dataset
+            };
+
+            var delete_datasets = {
+                labels: dates_json.dates,
+                datasets: data_delete_dataset
+            };
+
+            var ctxAdd = document.getElementById('codeAddedDist').getContext('2d');
+            var ctxDelete = document.getElementById('codeDelDist').getContext('2d');
+
+            if (addChart != null)
+                addChart.destroy();
+
+            addChart = new Chart(ctxAdd, {
+                type: 'line',
+                data: add_datasets,
+                options: {
+                    animation: {
+                        animateScale: true
+                    }
+                }
+            });
+
+            if (delChart != null)
+                delChart.destroy();
+
+            delChart = new Chart(ctxAdd, {
+                type: 'line',
+                data: delete_datasets,
+                options: {
+                    animation: {
+                        animateScale: true
+                    }
+                }
+            });
+        }
+    });
+</script>
+
 <div class="row">
     <div class="col-md-3">
         <select class="selectpicker" title="Select a team to display"
@@ -43,7 +105,7 @@
         {% if team_list|length %}
             <select class="selectpicker" title="Select a team member" id="member-picker" multiple>
                 {% for member in team_list %}
-                    <option value="{{ member.name }}">
+                    <option value="{{ member.name }}" selected>
                         {{ member.name }}
                     </option>
                 {% endfor %}
@@ -52,6 +114,6 @@
     </div>
 
     <div class="col-md-3">
-        <button type="button" class="btn btn-primary" onclick="">Compare</button>
+        <button type="button" class="btn btn-primary" onclick="render_filtered()">Compare</button>
     </div>
 </div>
