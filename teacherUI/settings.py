@@ -81,6 +81,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'teacherUI.wsgi.application'
 
+# TODO: Integrate with LDAP server of the univeristy
+# Use Django LDAP extension for this: https://pythonhosted.org/django-auth-ldap/
+
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
