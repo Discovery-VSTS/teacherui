@@ -1,25 +1,30 @@
 # teachrUI 
 [![Build Status](https://travis-ci.org/Discovery-VSTS/teacherui.svg?branch=master)](https://travis-ci.org/Discovery-VSTS/teacherui)
 
-## Design
-See [Wireframes](https://github.com/Discovery-VSTS/teacherui/tree/master/Wireframes)
+Zero start build
+--------------------------
 
-## Components and Developer
+Create a local PostgreSQL database with the following parameters:
 
-### [100 Points Tab](https://github.com/Discovery-VSTS/teacherui/blob/master/templates/tabs/tab_100_points.html)
+```javascript
+SERVER_NAME: 'travisci'
+USER: 'postgres'
+PASSWORD: ''
+HOST: 'localhost'
+PORT: [DEFAULT PORT]
+```
 
-**100pt-top-selector** - Yichen - Done
+_Feel free to edit these parameters in the settings.py file._
 
-**score-table** - Ricard - Done
+Create virtual environment with python 3.5+ as base interpreter
 
-**distribution-analysis** - Minh/Yichen - Done
+Run `pip install -r requirements.txt`
 
-### [Code Metrics Tab](https://github.com/Discovery-VSTS/teacherui/blob/master/templates/tabs/tab_codemetrics.html)
+Finally, run `python manage.py migrate` and then `python manage.py runserver`
 
-**codemetrics-top-selector** - Ricard - Done
+_Always make sure you are in the proper virtual environment_
 
-**gpa-score** - Yichen - Done
+Run for development
+-------------------
 
-**commit-stats** - Ricard - Done
-
-**code-coverage** Minh/Yichen
+Just run `python manage.py runserver`
